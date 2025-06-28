@@ -57,13 +57,13 @@ function openWindow(name, type, content) {
   win.id = id;
 
   win.innerHTML = `
-    <div class="title-bar">
-      <div class="window-controls">
-        <button class="minimize">&#8211;</button>
-        <button class="maximize">&#9723;</button>
-        <button class="close" onclick="closeWindow('${id}')">✖</button>
-      </div>
+    <div class="title-bar" style="background: white; font-family: 'Segoe UI', sans-serif;">
       <span class="window-title">${name}</span>
+      <div class="window-controls">
+        <button class="minimize" style="background: none; border: none;"><img src="assets/minimize.png" alt="minimize"></button>
+        <button class="maximize" style="background: none; border: none;"><img src="assets/maximize.png" alt="maximize"></button>
+        <button class="close" style="background: none; border: none;"><img src="assets/close.png" alt="close"></button>
+      </div>
     </div>
     <div class="window-body">
       ${type === "doc"
@@ -136,9 +136,6 @@ function proceedToLink() {
 }
 
 // Drag logic
-
-// Only apply drag logic on non-maximized windows
-// For windows that are not maximized, allow dragging from the title bar
 
 document.addEventListener("mousedown", function (e) {
   const titleBar = e.target.closest(".title-bar");
