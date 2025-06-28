@@ -1,1 +1,56 @@
-TBD - JSON file structure
+{
+  "desktop": [
+    {
+      "name": "about_me.docx",
+      "type": "doc",
+      "path": "docs/about_me.html"
+    },
+    {
+      "name": "ocs",
+      "type": "folder",
+      "contents": "docs/ocs"
+    },
+    {
+      "name": "fandoms",
+      "type": "folder",
+      "contents": "docs/fandoms"
+    }
+  ],
+  "docs/ocs": [
+    {
+      "name": "oc_1.docx",
+      "type": "doc",
+      "path": "docs/ocs/oc_1.html"
+    },
+    {
+      "name": "oc_2.docx",
+      "type": "doc",
+      "path": "docs/ocs/oc_2.html"
+    },
+    {
+      "name": "extra",
+      "type": "folder",
+      "contents": "docs/ocs/extra"
+    }
+  ],
+  "docs/ocs/extra": [
+    {
+      "name": "notes.docx",
+      "type": "doc",
+      "path": "docs/ocs/extra/notes.html"
+    }
+  ],
+  "docs/fandoms": [
+    {
+      "name": "anime.txt",
+      "type": "link",
+      "path": "https://myanimelist.net",
+      "icon": "https://myanimelist.net/favicon.ico"
+    },
+    {
+      "name": "games.txt",
+      "type": "link",
+      "path": "https://store.steampowered.com"
+    }
+  ]
+}
