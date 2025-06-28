@@ -6,7 +6,7 @@ window.onload = async function () {
   const structure = await response.json();
   renderIcons("desktop", structure);
   updateClock();
-  setInterval(updateClock, 1000);
+  
 };
 
 function renderIcons(directory, structure) {
@@ -173,3 +173,14 @@ document.addEventListener("mousedown", function (e) {
   document.addEventListener("mousemove", move);
   document.addEventListener("mouseup", stop);
 });
+
+
+function updateClock() {
+  const now = new Date();
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const date = now.toLocaleDateString();
+  const clock = document.getElementById("taskbar-clock");
+  if (clock) clock.textContent = time + "\n" + date;
+}
+setInterval(updateClock, 1000);
+updateClock();
