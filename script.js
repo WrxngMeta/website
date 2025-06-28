@@ -40,7 +40,7 @@ function handleClick(item) {
 
 function getIcon(item) {
   if (item.icon) return item.icon;
-  if (item.type === "doc") return "assets/word-icon.png";
+  if (item.type === "doc") return "assets/document-icon.png";
   if (item.type === "folder") return "assets/folder-icon.png";
   if (item.type === "link") return "assets/generic-link-icon.png";
   return "assets/default-site-icon.png";
