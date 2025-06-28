@@ -1,1 +1,167 @@
-TBD - CSS styles
+/* style.css */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+.wallpaper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.desktop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  position: relative;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  cursor: pointer;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+.icon img {
+  width: 48px;
+  height: 48px;
+}
+
+.icon span {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 40px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.start img {
+  height: 32px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.taskbar-apps img {
+  height: 28px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.taskbar-clock {
+  font-size: 12px;
+  color: white;
+  text-align: right;
+  margin-right: 10px;
+  white-space: pre;
+}
+
+.window {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 600px;
+  height: 400px;
+  background: white;
+  border: 1px solid #666;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  resize: both;
+  overflow: hidden;
+  z-index: 900;
+}
+
+.title-bar {
+  background: linear-gradient(#d0e4ff, #83b4e3);
+  padding: 5px 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+
+.window-body {
+  flex: 1;
+  overflow: auto;
+}
+
+.window iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.folder-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: #f5f5f5;
+  border: 2px solid #999;
+  box-shadow: 0 0 10px black;
+  padding: 15px;
+  font-size: 14px;
+  min-width: 300px;
+  max-width: 90vw;
+}
+
+.modal-header {
+  background: linear-gradient(to right, #2778b7, #5ab5e9);
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin: -15px -15px 10px -15px;
+}
+
+.modal-footer {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.modal-footer button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  font-size: 13px;
+}
