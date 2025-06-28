@@ -255,17 +255,16 @@ body {
   font-size: 13px;
 }
 
-
 .taskbar-clock {
-  font: 600 11px system-ui, sans-serif;
+  font-size: 12px;
   color: black;
+  text-align: right;
+  line-height: 1.2;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: flex-end;
-  justify-content: center;
-  height: 100%;
-  padding: 2px 6px 2px 0;
-  line-height: 1.3;
-  white-space: pre;
+  padding-right: 8px;
+  min-width: 70px; /* ensure enough space */
   box-sizing: border-box;
 }
