@@ -89,23 +89,34 @@ body {
   width: 500px;
   height: 400px;
   background: #fff;
-  border: 2px solid #8ace00;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   resize: both;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  font-family: "Segoe UI", sans-serif;
+  z-index: 10;
+}
+
+.window.visible {
+  opacity: 1;
 }
 
 .title-bar {
-  background: linear-gradient(#d0e4ff, #83b4e3);
-  padding: 5px 10px;
-  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: move;
+  background: white;
+  height: 32px;
+  padding: 0 10px;
+  font-weight: 500;
+  font-size: 14px;
+  user-select: none;
+  cursor: grab;
+  border-bottom: 1px solid #ccc;
 }
 
 .window-body {
@@ -186,4 +197,35 @@ body {
   height: 32px;
   object-fit: contain;
   image-rendering: auto;
+}
+
+.window-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.window-controls button {
+  width: 36px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.window-controls button img {
+  width: 12px;
+  height: 12px;
+}
+
+.window-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.window-controls .close:hover {
+  background-color: #e81123;
 }
