@@ -73,8 +73,11 @@ function openWindow(name, type, content) {
   `;
 
   container.appendChild(win);
-  requestAnimationFrame(() => win.classList.add("visible"));
+requestAnimationFrame(() => win.classList.add("visible"));
 
+// Attach close event listener
+const closeBtn = win.querySelector(".close");
+if (closeBtn) closeBtn.onclick = () => closeWindow(id);
 
   if (type === "folder") {
     fetch("files.json")
