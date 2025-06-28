@@ -33,8 +33,7 @@ function handleClick(item) {
   } else if (item.type === "doc") {
     openWindow(item.name, "doc", item.path);
   } else if (item.type === "link") {
-    currentLink = item.path;
-    showUACModal(item);
+    openWindow(item.name, "web", item.path);
   }
 }
 
@@ -52,21 +51,22 @@ function openWindow(name, type, content) {
 
   const container = document.getElementById("windows-container");
   const win = document.createElement("div");
+  const title = type === "web" ? `${name.replace(/\.txt$/, "")} - Web Viewer` : name;
   const isMobile = window.innerWidth <= 768;
   win.className = "window" + (isMobile ? " maximized" : "");
   win.id = id;
 
   win.innerHTML = `
-    <div class="title-bar" style="background: white; font-family: 'Segoe UI', sans-serif;">
-      <span class="window-title">${name}</span>
+    <div class="title-bar">
+      <span class="window-title">${title}</span>
       <div class="window-controls">
-        <button class="minimize" style="background: none; border: none;"><img src="assets/minimize.png" alt="minimize"></button>
-        <button class="maximize" style="background: none; border: none;"><img src="assets/maximize.png" alt="maximize"></button>
-        <button class="close" style="background: none; border: none;"><img src="assets/close.png" alt="close"></button>
+        <button class="minimize"><img src="assets/minimize.png" alt="minimize"></button>
+        <button class="maximize"><img src="assets/maximize.png" alt="maximize"></button>
+        <button class="close"><img src="assets/close.png" alt="close"></button>
       </div>
     </div>
     <div class="window-body">
-      ${type === "doc"
+      ${type === "doc" || type === "web"
         ? `<iframe src="${content}" frameborder="0"></iframe>`
         : `<div class="folder-contents" id="${id}_contents"></div>`}
     </div>
