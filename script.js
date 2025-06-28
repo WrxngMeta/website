@@ -52,13 +52,18 @@ function openWindow(name, type, content) {
 
   const container = document.getElementById("windows-container");
   const win = document.createElement("div");
-  win.className = "window";
+  const isMobile = window.innerWidth <= 768;
+  win.className = "window" + (isMobile ? " maximized" : "");
   win.id = id;
 
   win.innerHTML = `
     <div class="title-bar">
-      ${name}
-      <button onclick="closeWindow('${id}')">✖</button>
+      <div class="window-controls">
+        <button class="minimize">&#8211;</button>
+        <button class="maximize">&#9723;</button>
+        <button class="close" onclick="closeWindow('${id}')">✖</button>
+      </div>
+      <span class="window-title">${name}</span>
     </div>
     <div class="window-body">
       ${type === "doc"
@@ -129,3 +134,30 @@ function proceedToLink() {
   if (currentLink) window.open(currentLink, '_blank');
   closeModal();
 }
+
+// Drag logic
+
+// Only apply drag logic on non-maximized windows
+// For windows that are not maximized, allow dragging from the title bar
+
+document.addEventListener("mousedown", function (e) {
+  const titleBar = e.target.closest(".title-bar");
+  const win = e.target.closest(".window");
+  if (!titleBar || win.classList.contains("maximized")) return;
+
+  let offsetX = e.clientX - win.offsetLeft;
+  let offsetY = e.clientY - win.offsetTop;
+
+  function move(e) {
+    win.style.left = e.clientX - offsetX + "px";
+    win.style.top = e.clientY - offsetY + "px";
+  }
+
+  function stop() {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", stop);
+  }
+
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", stop);
+});
