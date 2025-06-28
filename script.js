@@ -28,6 +28,12 @@ function renderIcons(directory, structure) {
 }
 
 function handleClick(item) {
+  if (item.type === "link") {
+    // Prevent iframe fallback — show UAC for all .txt links
+    currentLink = item.path;
+    showUACModal(item);
+    return;
+  }
   if (item.type === "folder") {
     openWindow(item.name, "folder", item.contents);
   } else if (item.type === "doc") {
@@ -73,6 +79,7 @@ function openWindow(name, type, content) {
   `;
 
   container.appendChild(win);
+  requestAnimationFrame(() => win.classList.add('visible'));
 requestAnimationFrame(() => win.classList.add("visible"));
 
 // Attach close event listener
