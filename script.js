@@ -121,13 +121,6 @@ function closeWindow(id) {
   }
 }
 
-function updateClock() {
-  const now = new Date();
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const date = now.toLocaleDateString();
-  document.getElementById("clock").textContent = `${time}\n${date}`;
-}
-
 function showFakePopup() {
   alert("Why would you need to access applications? We are literally in a fake desktop. What could even run in this thing..?");
 }
@@ -180,7 +173,7 @@ function updateClock() {
   const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const date = now.toLocaleDateString();
   const clock = document.getElementById("taskbar-clock");
-  if (clock) clock.textContent = time + "\n" + date;
+  if (clock) clock.innerHTML = `${time}<br>${date}`;
 }
 setInterval(updateClock, 1000);
 updateClock();
