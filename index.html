@@ -1,1 +1,54 @@
-TBD - dynamically loaded main HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake Windows 7 Desktop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <img src="assets/wallpaper.jpg" alt="Wallpaper" class="wallpaper" />
+
+    <!-- Trash bin, static -->
+    <div class="icon trash">
+      <img src="assets/trash-icon.png" alt="Trash" />
+      <span>Recycle Bin</span>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <div class="start" onclick="showFakePopup()">
+        <img src="assets/start-orb.png" alt="Start" />
+      </div>
+      <div class="taskbar-apps">
+        <img src="assets/explorer-icon.png" alt="Explorer" onclick="openWindow('explorer-root')" />
+        <img src="assets/word-icon.png" alt="Word" onclick="openWindow('about_me.docx')" />
+      </div>
+      <div class="taskbar-clock">
+        <span id="clock"></span>
+      </div>
+    </div>
+
+    <!-- Window container -->
+    <div id="windows-container"></div>
+  </div>
+
+  <!-- External link warning modal (UAC-style) -->
+  <div id="external-link-modal" class="modal hidden">
+    <div class="modal-box" id="modal-box">
+      <div class="modal-header">User Account Control</div>
+      <div class="modal-body">
+        <p>Windows needs your permission to continue.</p>
+        <p>Destination: <span id="link-destination"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="proceedToLink()">Continue</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
