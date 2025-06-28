@@ -55,44 +55,33 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  background: rgba(255, 255, 255, 0.75); /* or a subtle frosted glass feel */
+  background: rgba(255, 255, 255, 0.75);
   padding: 0 10px;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  pointer-events: none;
-}
-
-.start {
-  pointer-events: auto;
+  pointer-events: none; /* disables entire bar */
 }
 
 #taskbar-left {
   display: flex;
   gap: 6px;
-  pointer-events: none;
 }
 
-#taskbar-left .start {
-  pointer-events: auto;
+.start {
+  pointer-events: auto; /* only start menu clickable */
+}
+
+.taskbar-apps img {
+  pointer-events: none; /* all icons inside apps not clickable */
 }
 
 .start img {
   height: 32px;
   margin-left: 8px;
   cursor: pointer;
-}
-
-.taskbar-apps img,
-.taskbar-icon {
-  height: 28px;
-  width: 28px;
-  object-fit: contain;
-  margin: 0 4px;
-  cursor: pointer;
-  display: block;
 }
 
 .taskbar-clock {
@@ -103,7 +92,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  white-space: pre;
+  white-space: pre-line;
   padding-right: 4px;
   font-family: "Segoe UI", sans-serif;
 }
