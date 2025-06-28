@@ -73,6 +73,8 @@ function openWindow(name, type, content) {
   `;
 
   container.appendChild(win);
+  requestAnimationFrame(() => win.classList.add("visible"));
+
 
   if (type === "folder") {
     fetch("files.json")
@@ -103,7 +105,10 @@ function renderFolderContents(path, structure, containerId) {
 
 function closeWindow(id) {
   const win = document.getElementById(id);
-  if (win) win.remove();
+  if (win) {
+    win.classList.remove("visible");
+    setTimeout(() => win.remove(), 400); // Match transition duration
+  }
 }
 
 function updateClock() {
