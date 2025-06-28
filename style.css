@@ -44,16 +44,22 @@ body {
 }
 
 .taskbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.75); /* or a subtle frosted glass feel */
+  padding: 0 10px;
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 40px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   z-index: 1000;
+}
+
+#taskbar-left {
+  display: flex;
+  gap: 6px;
 }
 
 .start img {
@@ -173,4 +179,11 @@ body {
   height: 100vh !important;
   border-radius: 0;
   border: none;
+}
+
+.taskbar-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: auto;
 }
