@@ -80,11 +80,10 @@ body {
   justify-content: center;
   align-items: flex-end;
   text-align: right;
-  padding-right: 8px;
-  width: auto;
+  padding-right: 14px; /* extra space for Chrome's overflow */
   min-width: 80px;
-  height: 32px;
-  white-space: normal;
+  height: 100%;
+  white-space: pre-line;
   box-sizing: border-box;
 }
 
