@@ -34,11 +34,11 @@ function handleClick(item) {
     return;
   }
   if (item.type === "folder") {
-    openWindow(item.name, "folder", item.contents);
+    openWindow(item.name, "folder", item.contents, item);
   } else if (item.type === "doc" || item.name.endsWith(".md")) {
-    openWindow(item.name, "doc", item.path);
+    openWindow(item.name, "doc", item.path, item);
   } else if (item.type === "web") {
-    openWindow(item.name, "web", item.path);
+    openWindow(item.name, "web", item.path, item);
   } else {
     showAlertWindow("Oops, looks like that file has no support yet! Please contact the developer at bugreports@vaiafanculo.xyz or join their Discord server at .gg/XXXXXXXX");
   }
@@ -64,7 +64,7 @@ function renderWordUI() {
   `;
 }
 
-function openWindow(item) {
+function openWindow(name, type, content, item = {}) {
   const name = item.name;
   const type = item.type;
   const content = item.path || item.contents;
