@@ -135,6 +135,16 @@ function closeWindow(id) {
   }
 }
 
+function showAlertWindow(message) {
+  const alertWin = document.createElement("div");
+  alertWin.className = "unknown-alert";
+  alertWin.innerHTML = `
+    <p>${message}</p>
+    <button onclick="this.parentElement.remove()">OK</button>
+  `;
+  document.body.appendChild(alertWin);
+}
+
 function showFakePopup() {
   showAlertWindow("Why would you need to access applications? We are literally in a fake desktop. What could even run in this thing..?");
 }
