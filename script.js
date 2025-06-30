@@ -63,7 +63,7 @@ function openWindow(name, type, content) {
   win.className = "window" + (isMobile ? " maximized" : "");
   win.id = id;
 
-  const uiType = item.ui || (type === "doc" || name.endsWith(".md") ? "word" : type);
+  const uiType = (type === "doc" || name.endsWith(".md")) ? "word" : type;
   let uiHTML = "";
   if (uiType === "word") {
     uiHTML = renderWordUI();
@@ -81,28 +81,6 @@ function openWindow(name, type, content) {
     <div class="window-body">
       ${uiHTML}
       ${type === "doc" || type === "web" || name.endsWith(".md")
-        ? `<iframe src="${content}" frameborder="0"></iframe>`
-        : `<div class="folder-contents" id="${id}_contents"></div>`}
-    </div>
-  `;
-
-  const win = document.createElement("div");
-  const title = type === "web" ? `${name.replace(/\.txt$/, "")} - Web Viewer` : name;
-  const isMobile = window.innerWidth <= 768;
-  win.className = "window" + (isMobile ? " maximized" : "");
-  win.id = id;
-
-  win.innerHTML = `
-    <div class="title-bar">
-      <span class="window-title">${title}</span>
-      <div class="window-controls">
-        <button class="minimize"><img src="assets/minimize.png" alt="minimize"></button>
-        <button class="maximize"><img src="assets/maximize.png" alt="maximize"></button>
-        <button class="close"><img src="assets/close.png" alt="close"></button>
-      </div>
-    </div>
-    <div class="window-body">
-      ${type === "doc" || type === "web"
         ? `<iframe src="${content}" frameborder="0"></iframe>`
         : `<div class="folder-contents" id="${id}_contents"></div>`}
     </div>
@@ -152,9 +130,7 @@ function closeWindow(id) {
 }
 
 function showFakePopup() {
-  
-showCustomAlert("Why would you need to access applications? We are literally in a fake desktop. What could even run in this thing..?");
-
+  showAlertWindow("Why would you need to access applications? We are literally in a fake desktop. What could even run in this thing..?");
 }
 
 function showUACModal(item) {
