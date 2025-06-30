@@ -18,6 +18,7 @@
     {
       "name": "test.xyz",
       "type": "unknown"
+      "contents": "docs/test.xyz"
     }
   ],
   "docs/ocs": [
