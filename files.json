@@ -14,7 +14,7 @@
       "name": "fandoms",
       "type": "folder",
       "contents": "docs/fandoms"
-    }
+    },
     {
       "name": "test.xyz",
       "type": "unknown",
