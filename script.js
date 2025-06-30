@@ -33,7 +33,15 @@ function handleClick(item) {
     showUACModal(item);
     return;
   }
-  openWindow(item); // Pass the full item object
+  if (item.type === "folder") {
+    openWindow(item.name, "folder", item.contents);
+  } else if (item.type === "doc" || item.name.endsWith(".md")) {
+    openWindow(item.name, "doc", item.path);
+  } else if (item.type === "web") {
+    openWindow(item.name, "web", item.path);
+  } else {
+    showAlertWindow("Oops, looks like that file has no support yet! Please contact the developer at bugreports@vaiafanculo.xyz or join their Discord server at .gg/XXXXXXXX");
+  }
 }
 
 function getIcon(item) {
