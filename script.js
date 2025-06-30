@@ -29,18 +29,11 @@ function renderIcons(directory, structure) {
 
 function handleClick(item) {
   if (item.type === "link") {
-    // Prevent iframe fallback — show UAC for all .txt links
     currentLink = item.path;
     showUACModal(item);
     return;
   }
-  if (item.type === "folder") {
-    openWindow(item.name, "folder", item.contents);
-  } else if (item.type === "doc") {
-    openWindow(item.name, "doc", item.path);
-  } else if (item.type === "link") {
-    openWindow(item.name, "web", item.path);
-  }
+  openWindow(item); // Pass the full item object
 }
 
 function getIcon(item) {
@@ -51,11 +44,25 @@ function getIcon(item) {
   return "assets/default-site-icon.png";
 }
 
-function openWindow(name, type, content) {
+function renderWordUI() {
+  return `
+    <div class="fake-word-ui">
+      <div class="word-toolbar">
+        <button>File</button>
+        <button>Edit</button>
+        <button>View</button>
+      </div>
+    </div>
+  `;
+}
+
+function openWindow(item) {
+  const name = item.name;
+  const type = item.type;
+  const content = item.path || item.contents;
   const id = name.replace(/\W+/g, "_");
   if (document.getElementById(id)) return;
 
-  
   const container = document.getElementById("windows-container");
   const win = document.createElement("div");
   const title = type === "web" ? `${name.replace(/\.txt$/, "")} - Web Viewer` : name;
@@ -63,8 +70,9 @@ function openWindow(name, type, content) {
   win.className = "window" + (isMobile ? " maximized" : "");
   win.id = id;
 
-  const uiType = (type === "doc" || name.endsWith(".md")) ? "word" : type;
+  const uiType = item.ui || ((type === "doc" || name.endsWith(".md")) ? "word" : type);
   let uiHTML = "";
+
   if (uiType === "word") {
     uiHTML = renderWordUI();
   }
@@ -87,12 +95,10 @@ function openWindow(name, type, content) {
   `;
 
   container.appendChild(win);
-  requestAnimationFrame(() => win.classList.add('visible'));
-requestAnimationFrame(() => win.classList.add("visible"));
+  requestAnimationFrame(() => win.classList.add("visible"));
 
-// Attach close event listener
-const closeBtn = win.querySelector(".close");
-if (closeBtn) closeBtn.onclick = () => closeWindow(id);
+  const closeBtn = win.querySelector(".close");
+  if (closeBtn) closeBtn.onclick = () => closeWindow(id);
 
   if (type === "folder") {
     fetch("files.json")
