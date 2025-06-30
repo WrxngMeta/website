@@ -28,6 +28,8 @@ function renderIcons(directory, structure) {
 }
 
 function handleClick(item) {
+  const supportedTypes = ['folder', 'doc', 'link'];
+  if (!supportedTypes.includes(item.type)) return openUnknownFile(item.name);
   if (item.type === "link") {
     // Prevent iframe fallback — show UAC for all .txt links
     currentLink = item.path;
@@ -43,6 +45,41 @@ function handleClick(item) {
   }
 }
 
+// Patched getIcon and added unknown file handler
+
+function getIcon(item) {
+  if (item.icon) {
+    if (item.icon.startsWith("custom_assets/")) {
+      return item.icon; // Allow custom icons
+    }
+    return "assets/" + item.icon;
+  }
+  if (item.type === "doc") return "assets/document-icon.png";
+  if (item.type === "folder") return "assets/folder-icon.png";
+  if (item.type === "link") return "assets/generic-link-icon.png";
+  return "assets/default-site-icon.png";
+}
+
+function openUnknownFile(name) {
+  const id = "unknown_" + name.replace(/\W+/g, "_");
+  if (document.getElementById(id)) return;
+
+  const container = document.getElementById("windows-container");
+  const alert = document.createElement("div");
+  alert.className = "unknown-alert";
+  alert.id = id;
+
+  alert.innerHTML = `
+    <p><strong>Oops!</strong> Looks like that file has no support yet.</p>
+    <p>Please contact the developer at <code>bugreports@vaiafanculo.xyz</code><br>
+    or join their Discord server: <code>.gg/XXXXXXXX</code></p>
+    <button onclick="document.getElementById('${id}').remove()">Close</button>
+  `;
+
+  container.appendChild(alert);
+}
+
+// Replacing original getIcon
 function getIcon(item) {
   if (item.icon) return item.icon;
   if (item.type === "doc") return "assets/document-icon.png";
