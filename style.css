@@ -270,3 +270,32 @@ body {
   margin-left: 5px;
   font-size: 13px;
 }
+
+
+/* === Word-like Toolbar === */
+.word-toolbar {
+  display: flex;
+  gap: 6px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #ccc;
+  padding: 4px 8px;
+}
+
+.word-toolbar button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 4px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-toolbar button img {
+  width: 16px;
+  height: 16px;
+}
+
+.word-toolbar button:hover {
+  background: #e6e6e6;
+}
