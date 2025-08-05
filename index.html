@@ -2,49 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fake Windows 7 Desktop</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Vaiafanculo.xyz</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    button, select {
+      margin-top: 1em;
+      padding: 0.75em 1.25em;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    select {
+      background: white;
+      color: #333;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-  <img src="assets/wallpaper.jpg" alt="Wallpaper" class="wallpaper" />
-  <div class="desktop" id="desktop">
+  <div id="content"></div>
 
-    <!-- Trash bin, static -->
-    <div class="icon trash">
-      <img src="assets/trash-icon.png" alt="Trash" />
-      <span>Recycle Bin</span>
-    </div>
+  <select id="languageSelect" aria-label="Choose language">
+    <option value="en">English</option>
+    <option value="it">Italiano</option>
+  </select>
 
-    <!-- Taskbar -->
-    <div class="taskbar">
-      <div id="taskbar-left">
-        <img src="assets/start.png" class="taskbar-icon" onclick="showFakePopup()" />
-        <img src="assets/explorer-icon.png" class="taskbar-icon" />
-        <img src="assets/word-icon.png" class="taskbar-icon" />
-      </div>
-      <div class="taskbar-clock" id="taskbar-clock"></div>
-    </div>
+  <script>
+    const translations = {
+      en: {
+        title: "Hey! You've reached my website.",
+        message: "This website is blank, and the domain is just used for my email.",
+        button: "Contact me",
+        mailto: "mailto:webmaster@vaiafanculo.xyz"
+      },
+      it: {
+        title: "Ehi! Sei arrivato sul mio sito.",
+        message: "Questo sito è vuoto, il dominio serve solo per la mia email.",
+        button: "Contattami",
+        mailto: "mailto:webmaster@vaiafanculo.xyz"
+      }
+    };
 
-    <!-- Window container -->
-    <div id="windows-container"></div>
-  </div>
+    const content = document.getElementById("content");
+    const select = document.getElementById("languageSelect");
 
-  <!-- External link warning modal (UAC-style) -->
-  <div id="external-link-modal" class="modal hidden">
-    <div class="modal-box" id="modal-box">
-      <div class="modal-header">User Account Control</div>
-      <div class="modal-body">
-        <p>Windows needs your permission to continue.</p>
-        <p>Destination: <span id="link-destination"></span></p>
-      </div>
-      <div class="modal-footer">
-        <button onclick="proceedToLink()">Continue</button>
-        <button onclick="closeModal()">Cancel</button>
-      </div>
-    </div>
-  </div>
+    function setLanguage(lang) {
+      const t = translations[lang] || translations.en;
+      content.innerHTML = `
+        <h1>${t.title}</h1>
+        <p>${t.message}</p>
+        <a href="${t.mailto}">
+          <button>${t.button}</button>
+        </a>
+      `;
+      select.value = lang;
+    }
 
-  <script src="script.js"></script>
+    select.addEventListener("change", () => {
+      setLanguage(select.value);
+    });
+
+    // Detect country by IP using a free geolocation API (no key required)
+    fetch("https://ipapi.co/json")
+      .then(res => res.json())
+      .then(data => {
+        const country = data.country;
+        if (country === "IT") {
+          setLanguage("it");
+        } else {
+          setLanguage("en");
+        }
+      })
+      .catch(() => setLanguage("en")); // fallback to English
+  </script>
 </body>
 </html>
