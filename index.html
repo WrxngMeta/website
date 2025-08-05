@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact | Vaiafanculo.xyz</title>
   <style>
+    :root {
+      color-scheme: dark light;
+    }
+
     body {
       font-family: system-ui, sans-serif;
-      background: #f8f8f8;
-      color: #333;
+      background-color: #111;
+      color: #f2f2f2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -16,6 +20,23 @@
       text-align: center;
       height: 100vh;
       margin: 0;
+      padding: 1em;
+    }
+
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: #f8f8f8;
+        color: #111;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
     }
 
     button, select {
@@ -25,18 +46,34 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      background-color: #007bff;
+    }
+
+    button {
+      background-color: #222;
       color: white;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #444;
     }
 
     select {
       background: white;
       color: #333;
       border: 1px solid #ccc;
+    }
+
+    #fallbackText {
+      margin-top: 1em;
+      font-size: 0.9em;
+      font-style: italic;
+      opacity: 0.7;
+      display: none;
+    }
+
+    #fallbackText b {
+      font-weight: bold;
+      color: inherit;
     }
   </style>
 </head>
@@ -48,42 +85,56 @@
     <option value="it">Italiano</option>
   </select>
 
+  <div id="fallbackText"></div>
+
   <script>
     const translations = {
       en: {
         title: "Hey! You've reached my website.",
         message: "This website is blank, and the domain is just used for my email.",
         button: "Contact me",
+        fallback: 'If the button to email me didn’t work, try manually at <b>webmaster@vaiafanculo.xyz</b>.',
         mailto: "mailto:webmaster@vaiafanculo.xyz"
       },
       it: {
         title: "Ehi! Sei arrivato sul mio sito.",
         message: "Questo sito è vuoto, il dominio serve solo per la mia email.",
         button: "Contattami",
+        fallback: 'Se il pulsante non ha funzionato, prova manualmente a <b>webmaster@vaiafanculo.xyz</b>.',
         mailto: "mailto:webmaster@vaiafanculo.xyz"
       }
     };
 
     const content = document.getElementById("content");
     const select = document.getElementById("languageSelect");
+    const fallback = document.getElementById("fallbackText");
 
     function setLanguage(lang) {
       const t = translations[lang] || translations.en;
       content.innerHTML = `
         <h1>${t.title}</h1>
         <p>${t.message}</p>
-        <a href="${t.mailto}">
+        <a href="${t.mailto}" id="mailButton">
           <button>${t.button}</button>
         </a>
       `;
+      fallback.innerHTML = t.fallback;
+      fallback.style.display = "none"; // Reset visibility on language switch
       select.value = lang;
+
+      // Attach click listener again
+      document.getElementById("mailButton").addEventListener("click", () => {
+        setTimeout(() => {
+          fallback.style.display = "block";
+        }, 100); // slight delay so it feels reactive
+      });
     }
 
     select.addEventListener("change", () => {
       setLanguage(select.value);
     });
 
-    // Detect country by IP using a free geolocation API (no key required)
+    // Detect country via IP
     fetch("https://ipapi.co/json")
       .then(res => res.json())
       .then(data => {
@@ -94,7 +145,7 @@
           setLanguage("en");
         }
       })
-      .catch(() => setLanguage("en")); // fallback to English
+      .catch(() => setLanguage("en")); // fallback
   </script>
 </body>
 </html>
